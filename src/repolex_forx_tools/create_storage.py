@@ -1,0 +1,234 @@
+#!/usr/bin/env python3
+"""
+create_storage.py - Create storage repos in the repolex-forx organization
+
+Creates plain public repos (not forks) for storing parsed graph data.
+
+Usage:
+    python create_storage.py jmespath/jmespath.py
+"""
+
+import argparse
+import subprocess
+import json
+import sys
+from pathlib import Path
+from typing import Optional
+
+# Configuration
+FORK_ORG = "repolex-forx"
+PROJECT_ROOT = Path(__file__).parent.parent.parent
+WORKFLOW_TEMPLATE = PROJECT_ROOT / ".github" / "workflows" / "parse-repo.yml"
+
+
+def run_gh(args: list[str], capture: bool = True) -> subprocess.CompletedProcess:
+    """Run a gh CLI command."""
+    cmd = ["gh"] + args
+    return subprocess.run(
+        cmd,
+        capture_output=capture,
+        text=True,
+    )
+
+
+def check_gh_auth() -> bool:
+    """Verify gh CLI is authenticated."""
+    result = run_gh(["auth", "status"])
+    return result.returncode == 0
+
+
+def storage_repo_exists(storage_name: str) -> bool:
+    """Check if storage repo already exists."""
+    result = run_gh(["repo", "view", f"{FORK_ORG}/{storage_name}"])
+    return result.returncode == 0
+
+
+def create_storage_repo(source_repo: str, dry_run: bool = False) -> bool:
+    """
+    Create a plain public repo for storing parsed graphs.
+
+    Args:
+        source_repo: e.g. "jmespath/jmespath.py"
+        dry_run: If True, don't actually create
+
+    Returns:
+        True if successful
+    """
+    storage_name = source_repo.replace("/", "--")
+    source_org, source_name = source_repo.split("/")
+
+    print(f"\n{'[DRY RUN] ' if dry_run else ''}Creating storage repo: {FORK_ORG}/{storage_name}")
+
+    # Check if already exists
+    if storage_repo_exists(storage_name):
+        print(f"  Storage repo already exists: {FORK_ORG}/{storage_name}")
+        return True
+
+    if dry_run:
+        print(f"  [DRY RUN] Would create {FORK_ORG}/{storage_name}")
+        return True
+
+    # Create the repo
+    # gh repo create {org}/{name} --public --description "..." --clone=false
+    result = run_gh([
+        "repo", "create", f"{FORK_ORG}/{storage_name}",
+        "--public",
+        "--description", f"Parsed graph storage for {source_repo}",
+        "--clone=false"
+    ])
+
+    if result.returncode != 0:
+        print(f"  Error creating repo: {result.stderr}")
+        return False
+
+    print(f"  Created: {FORK_ORG}/{storage_name}")
+
+    # Clone locally to set up files
+    clone_path = Path(f"/tmp/{storage_name}")
+    if clone_path.exists():
+        subprocess.run(["rm", "-rf", str(clone_path)])
+
+    print(f"  Cloning to set up initial files...")
+    result = subprocess.run(
+        ["git", "clone", f"https://github.com/{FORK_ORG}/{storage_name}.git", str(clone_path)],
+        capture_output=True,
+        text=True,
+    )
+
+    if result.returncode != 0:
+        print(f"  Warning: Could not clone repo: {result.stderr}")
+        return True  # Repo created, just can't set up files
+
+    # Create initial files
+    print(f"  Setting up initial files...")
+
+    # manifest.json
+    manifest = {
+        "source": source_repo,
+        "parsed_tags": []
+    }
+    (clone_path / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
+
+    # .github/workflows/parse-repo.yml
+    workflow_dir = clone_path / ".github" / "workflows"
+    workflow_dir.mkdir(parents=True, exist_ok=True)
+
+    # Read template and substitute env vars
+    if WORKFLOW_TEMPLATE.exists():
+        workflow_content = WORKFLOW_TEMPLATE.read_text()
+        # Replace SOURCE_ORG and SOURCE_REPO
+        workflow_content = workflow_content.replace(
+            "SOURCE_ORG: jmespath\n  SOURCE_REPO: jmespath.py",
+            f"SOURCE_ORG: {source_org}\n  SOURCE_REPO: {source_name}"
+        )
+        (workflow_dir / "parse-repo.yml").write_text(workflow_content)
+    else:
+        print(f"  Warning: Workflow template not found at {WORKFLOW_TEMPLATE}")
+
+    # README.md
+    readme = f"""# {source_repo} → RDF Graph Storage
+
+Automated parsing and storage of graph data for [{source_repo}](https://github.com/{source_repo}).
+
+This repository contains:
+- Parsed AST graphs (N-Quads format, gzip-compressed)
+- Git metadata (commits, branches, tags)
+- Daily automated parsing of new releases
+
+## Automation
+
+This repo runs a GitHub Action daily that:
+1. Checks for new releases in the source repo
+2. Parses the next unparsed release
+3. Commits the graph files back to this repo
+
+See [`.github/workflows/parse-repo.yml`](.github/workflows/parse-repo.yml) for details.
+
+## Manifest
+
+`manifest.json` tracks which tags have been parsed.
+
+## Storage Layout
+
+```
+files/{source_org}/{source_repo}/
+├── blob/                          # Content-addressed AST blobs (.nq.gz)
+├── commit/commit.nq              # Git commits
+├── tag/tag.nq                    # Git tags
+├── branch/branch.nq              # Git branches
+├── filetree/{{sha}}.nq            # File trees per commit
+└── aggregate/ast/{{sha}}.nq       # Aggregate AST graphs
+```
+
+Generated by [repolex](https://github.com/repolex-ai/repolex).
+"""
+    (clone_path / "README.md").write_text(readme)
+
+    # .gitignore
+    gitignore = """# Python
+__pycache__/
+*.py[cod]
+
+# OS
+.DS_Store
+"""
+    (clone_path / ".gitignore").write_text(gitignore)
+
+    # Commit and push
+    print(f"  Committing initial files...")
+    subprocess.run(["git", "config", "user.name", "repolex-bot"], cwd=clone_path)
+    subprocess.run(["git", "config", "user.email", "bot@repolex.ai"], cwd=clone_path)
+    subprocess.run(["git", "add", "."], cwd=clone_path)
+    subprocess.run(["git", "commit", "-m", "Initial setup"], cwd=clone_path)
+    subprocess.run(["git", "push"], cwd=clone_path)
+
+    print(f"  ✓ Storage repo ready: https://github.com/{FORK_ORG}/{storage_name}")
+
+    # Cleanup
+    subprocess.run(["rm", "-rf", str(clone_path)])
+
+    return True
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Create storage repos in the repolex-forx organization"
+    )
+    parser.add_argument(
+        "repos",
+        nargs="+",
+        help="Source repository names (e.g., jmespath/jmespath.py)"
+    )
+    parser.add_argument(
+        "--dry-run", "-n",
+        action="store_true",
+        help="Show what would be done without actually creating"
+    )
+
+    args = parser.parse_args()
+
+    # Check gh auth
+    if not args.dry_run:
+        print("Checking GitHub CLI authentication...")
+        if not check_gh_auth():
+            print("Error: GitHub CLI not authenticated. Run 'gh auth login' first.")
+            sys.exit(1)
+        print("  Authenticated!\n")
+
+    # Process each repo
+    success_count = 0
+    fail_count = 0
+
+    for repo in args.repos:
+        if create_storage_repo(repo, dry_run=args.dry_run):
+            success_count += 1
+        else:
+            fail_count += 1
+
+    # Summary
+    print(f"\n{'='*50}")
+    print(f"Complete! {success_count} succeeded, {fail_count} failed")
+
+
+if __name__ == "__main__":
+    main()

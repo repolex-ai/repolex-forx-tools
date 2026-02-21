@@ -1,0 +1,221 @@
+@prefix forx: <https://repolex.ai/ont/forx/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+# =============================================================================
+# REPOLEX-FORX REGISTRY ONTOLOGY
+# =============================================================================
+# Tracks the state of repos in the forking/parsing pipeline.
+# Because if you're building a semantic code graph, your tooling should be
+# semantic too. Dogfood tastes better when it's RDF-flavored.
+# =============================================================================
+
+forx: a owl:Ontology ;
+    rdfs:label "Repolex Forx Registry Ontology" ;
+    rdfs:comment "Schema for tracking repositories in the repolex-forx pipeline." .
+
+# -----------------------------------------------------------------------------
+# CLASSES
+# -----------------------------------------------------------------------------
+
+forx:TrackedRepo a owl:Class ;
+    rdfs:label "Tracked Repository" ;
+    rdfs:comment "A repository being tracked for forking and parsing." .
+
+forx:SeedList a owl:Class ;
+    rdfs:label "Seed List" ;
+    rdfs:comment "A curated collection of repos to fork." .
+
+forx:ParseRun a owl:Class ;
+    rdfs:label "Parse Run" ;
+    rdfs:comment "A single parsing execution for a repo." .
+
+# -----------------------------------------------------------------------------
+# FORK STATUS VALUES
+# -----------------------------------------------------------------------------
+
+forx:ForkStatus a owl:Class ;
+    rdfs:label "Fork Status" .
+
+forx:forkPending a forx:ForkStatus ;
+    rdfs:label "pending" ;
+    rdfs:comment "Repo identified but not yet forked." .
+
+forx:forkComplete a forx:ForkStatus ;
+    rdfs:label "forked" ;
+    rdfs:comment "Repo has been forked to repolex-forx org." .
+
+forx:forkFailed a forx:ForkStatus ;
+    rdfs:label "failed" ;
+    rdfs:comment "Fork attempt failed (permissions, rate limit, etc)." .
+
+forx:forkSkipped a forx:ForkStatus ;
+    rdfs:label "skipped" ;
+    rdfs:comment "Repo skipped (too large, archived, etc)." .
+
+# -----------------------------------------------------------------------------
+# PARSE STATUS VALUES
+# -----------------------------------------------------------------------------
+
+forx:ParseStatus a owl:Class ;
+    rdfs:label "Parse Status" .
+
+forx:parseNotStarted a forx:ParseStatus ;
+    rdfs:label "not_started" ;
+    rdfs:comment "Parsing has not been attempted." .
+
+forx:parsePending a forx:ParseStatus ;
+    rdfs:label "pending" ;
+    rdfs:comment "Parse workflow queued or running." .
+
+forx:parseComplete a forx:ParseStatus ;
+    rdfs:label "complete" ;
+    rdfs:comment "Parsing completed successfully." .
+
+forx:parseFailed a forx:ParseStatus ;
+    rdfs:label "failed" ;
+    rdfs:comment "Parsing failed." .
+
+# -----------------------------------------------------------------------------
+# PROPERTIES - Repository Identity
+# -----------------------------------------------------------------------------
+
+forx:sourceOwner a owl:DatatypeProperty ;
+    rdfs:label "source owner" ;
+    rdfs:comment "GitHub owner/org of the source repo (e.g., 'numpy')." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range xsd:string .
+
+forx:sourceRepo a owl:DatatypeProperty ;
+    rdfs:label "source repo" ;
+    rdfs:comment "GitHub repo name (e.g., 'numpy')." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range xsd:string .
+
+forx:sourceFullName a owl:DatatypeProperty ;
+    rdfs:label "source full name" ;
+    rdfs:comment "Full GitHub path (e.g., 'numpy/numpy')." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range xsd:string .
+
+forx:forkFullName a owl:DatatypeProperty ;
+    rdfs:label "fork full name" ;
+    rdfs:comment "Full path of the fork (e.g., 'repolex-forx/numpy--numpy')." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range xsd:string .
+
+# -----------------------------------------------------------------------------
+# PROPERTIES - Status Tracking
+# -----------------------------------------------------------------------------
+
+forx:forkStatus a owl:ObjectProperty ;
+    rdfs:label "fork status" ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range forx:ForkStatus .
+
+forx:parseStatus a owl:ObjectProperty ;
+    rdfs:label "parse status" ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range forx:ParseStatus .
+
+# -----------------------------------------------------------------------------
+# PROPERTIES - Timestamps
+# -----------------------------------------------------------------------------
+
+forx:addedAt a owl:DatatypeProperty ;
+    rdfs:label "added at" ;
+    rdfs:comment "When this repo was added to tracking." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range xsd:dateTime .
+
+forx:forkedAt a owl:DatatypeProperty ;
+    rdfs:label "forked at" ;
+    rdfs:comment "When the fork was created." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range xsd:dateTime .
+
+forx:lastParsed a owl:DatatypeProperty ;
+    rdfs:label "last parsed" ;
+    rdfs:comment "When parsing last completed successfully." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range xsd:dateTime .
+
+forx:lastChecked a owl:DatatypeProperty ;
+    rdfs:label "last checked" ;
+    rdfs:comment "When we last synced status from GitHub." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range xsd:dateTime .
+
+# -----------------------------------------------------------------------------
+# PROPERTIES - Metadata
+# -----------------------------------------------------------------------------
+
+forx:language a owl:DatatypeProperty ;
+    rdfs:label "primary language" ;
+    rdfs:comment "Primary programming language of the repo." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range xsd:string .
+
+forx:stars a owl:DatatypeProperty ;
+    rdfs:label "stars" ;
+    rdfs:comment "GitHub star count (for prioritization)." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range xsd:integer .
+
+forx:sourceCommit a owl:DatatypeProperty ;
+    rdfs:label "source commit" ;
+    rdfs:comment "Latest commit SHA of the source repo." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range xsd:string .
+
+forx:parsedCommit a owl:DatatypeProperty ;
+    rdfs:label "parsed commit" ;
+    rdfs:comment "Commit SHA that was last parsed." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range xsd:string .
+
+forx:tripleCount a owl:DatatypeProperty ;
+    rdfs:label "triple count" ;
+    rdfs:comment "Total triples generated from parsing." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range xsd:integer .
+
+# -----------------------------------------------------------------------------
+# PROPERTIES - Relationships
+# -----------------------------------------------------------------------------
+
+forx:inSeedList a owl:ObjectProperty ;
+    rdfs:label "in seed list" ;
+    rdfs:comment "The seed list this repo came from." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range forx:SeedList .
+
+forx:dependsOn a owl:ObjectProperty ;
+    rdfs:label "depends on" ;
+    rdfs:comment "Direct dependency relationship (discovered during parsing)." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range forx:TrackedRepo .
+
+forx:discoveredFrom a owl:ObjectProperty ;
+    rdfs:label "discovered from" ;
+    rdfs:comment "The repo whose dependencies led us to discover this one." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range forx:TrackedRepo .
+
+# -----------------------------------------------------------------------------
+# PROPERTIES - Error Tracking
+# -----------------------------------------------------------------------------
+
+forx:lastError a owl:DatatypeProperty ;
+    rdfs:label "last error" ;
+    rdfs:comment "Error message from last failed operation." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range xsd:string .
+
+forx:retryCount a owl:DatatypeProperty ;
+    rdfs:label "retry count" ;
+    rdfs:comment "Number of times we've retried failed operations." ;
+    rdfs:domain forx:TrackedRepo ;
+    rdfs:range xsd:integer .

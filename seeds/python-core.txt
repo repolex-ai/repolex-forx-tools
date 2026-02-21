@@ -1,0 +1,59 @@
+# =============================================================================
+# PYTHON CORE SEED LIST
+# =============================================================================
+# Foundational Python packages that form the backbone of the ecosystem.
+# These are high-value targets for the initial forking wave.
+#
+# Selection criteria:
+#   - High download counts (PyPI)
+#   - Foundation for many other packages
+#   - Good code quality / well-maintained
+#   - Representative of different domains
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# SCIENTIFIC COMPUTING
+# -----------------------------------------------------------------------------
+numpy/numpy
+scipy/scipy
+pandas-dev/pandas
+matplotlib/matplotlib
+
+# -----------------------------------------------------------------------------
+# MACHINE LEARNING
+# -----------------------------------------------------------------------------
+scikit-learn/scikit-learn
+pytorch/pytorch
+keras-team/keras
+
+# -----------------------------------------------------------------------------
+# WEB FRAMEWORKS
+# -----------------------------------------------------------------------------
+pallets/flask
+django/django
+tiangolo/fastapi
+encode/starlette
+
+# -----------------------------------------------------------------------------
+# HTTP / NETWORKING
+# -----------------------------------------------------------------------------
+psf/requests
+aio-libs/aiohttp
+encode/httpx
+urllib3/urllib3
+
+# -----------------------------------------------------------------------------
+# DATA / SERIALIZATION
+# -----------------------------------------------------------------------------
+yaml/pyyaml
+ijl/orjson
+msgpack/msgpack-python
+
+# -----------------------------------------------------------------------------
+# CORE UTILITIES
+# -----------------------------------------------------------------------------
+python-attrs/attrs
+pydantic/pydantic
+pallets/click
+python-poetry/poetry
+pypa/pip

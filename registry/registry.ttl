@@ -1,0 +1,287 @@
+@prefix forx: <https://repolex.ai/ont/forx/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# =============================================================================
+# REPOLEX-FORX REGISTRY
+# =============================================================================
+# Auto-generated tracking of all repos in the forking pipeline.
+# Last updated: 2026-02-01T10:38:27Z
+# =============================================================================
+
+
+<https://repolex.ai/registry/numpy--numpy> a forx:TrackedRepo ;
+    forx:sourceOwner "numpy" ;
+    forx:sourceRepo "numpy" ;
+    forx:sourceFullName "numpy/numpy" ;
+    forx:forkFullName "repolex-forx/numpy--numpy" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-01T11:43:34Z"^^xsd:dateTime ;
+    forx:stars 31365 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-01T11:43:34Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/scipy--scipy> a forx:TrackedRepo ;
+    forx:sourceOwner "scipy" ;
+    forx:sourceRepo "scipy" ;
+    forx:sourceFullName "scipy/scipy" ;
+    forx:forkFullName "repolex-forx/scipy--scipy" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:08:19Z"^^xsd:dateTime ;
+    forx:stars 14413 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:08:19Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/pandas-dev--pandas> a forx:TrackedRepo ;
+    forx:sourceOwner "pandas-dev" ;
+    forx:sourceRepo "pandas" ;
+    forx:sourceFullName "pandas-dev/pandas" ;
+    forx:forkFullName "repolex-forx/pandas-dev--pandas" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:08:22Z"^^xsd:dateTime ;
+    forx:stars 47762 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:08:22Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/matplotlib--matplotlib> a forx:TrackedRepo ;
+    forx:sourceOwner "matplotlib" ;
+    forx:sourceRepo "matplotlib" ;
+    forx:sourceFullName "matplotlib/matplotlib" ;
+    forx:forkFullName "repolex-forx/matplotlib--matplotlib" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:08:25Z"^^xsd:dateTime ;
+    forx:stars 22300 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:08:25Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/scikit-learn--scikit-learn> a forx:TrackedRepo ;
+    forx:sourceOwner "scikit-learn" ;
+    forx:sourceRepo "scikit-learn" ;
+    forx:sourceFullName "scikit-learn/scikit-learn" ;
+    forx:forkFullName "repolex-forx/scikit-learn--scikit-learn" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:08:29Z"^^xsd:dateTime ;
+    forx:stars 64867 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:08:29Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/pytorch--pytorch> a forx:TrackedRepo ;
+    forx:sourceOwner "pytorch" ;
+    forx:sourceRepo "pytorch" ;
+    forx:sourceFullName "pytorch/pytorch" ;
+    forx:forkFullName "repolex-forx/pytorch--pytorch" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:08:32Z"^^xsd:dateTime ;
+    forx:stars 97097 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:08:32Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/keras-team--keras> a forx:TrackedRepo ;
+    forx:sourceOwner "keras-team" ;
+    forx:sourceRepo "keras" ;
+    forx:sourceFullName "keras-team/keras" ;
+    forx:forkFullName "repolex-forx/keras-team--keras" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:08:35Z"^^xsd:dateTime ;
+    forx:stars 63754 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:08:35Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/pallets--flask> a forx:TrackedRepo ;
+    forx:sourceOwner "pallets" ;
+    forx:sourceRepo "flask" ;
+    forx:sourceFullName "pallets/flask" ;
+    forx:forkFullName "repolex-forx/pallets--flask" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:08:38Z"^^xsd:dateTime ;
+    forx:stars 71125 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:08:38Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/django--django> a forx:TrackedRepo ;
+    forx:sourceOwner "django" ;
+    forx:sourceRepo "django" ;
+    forx:sourceFullName "django/django" ;
+    forx:forkFullName "repolex-forx/django--django" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:08:41Z"^^xsd:dateTime ;
+    forx:stars 86642 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:08:41Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/tiangolo--fastapi> a forx:TrackedRepo ;
+    forx:sourceOwner "tiangolo" ;
+    forx:sourceRepo "fastapi" ;
+    forx:sourceFullName "tiangolo/fastapi" ;
+    forx:forkFullName "repolex-forx/tiangolo--fastapi" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:08:45Z"^^xsd:dateTime ;
+    forx:stars 94705 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:08:45Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/encode--starlette> a forx:TrackedRepo ;
+    forx:sourceOwner "encode" ;
+    forx:sourceRepo "starlette" ;
+    forx:sourceFullName "encode/starlette" ;
+    forx:forkFullName "repolex-forx/encode--starlette" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:08:48Z"^^xsd:dateTime ;
+    forx:stars 11886 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:08:48Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/psf--requests> a forx:TrackedRepo ;
+    forx:sourceOwner "psf" ;
+    forx:sourceRepo "requests" ;
+    forx:sourceFullName "psf/requests" ;
+    forx:forkFullName "repolex-forx/psf--requests" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:08:50Z"^^xsd:dateTime ;
+    forx:stars 53703 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:08:50Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/aio-libs--aiohttp> a forx:TrackedRepo ;
+    forx:sourceOwner "aio-libs" ;
+    forx:sourceRepo "aiohttp" ;
+    forx:sourceFullName "aio-libs/aiohttp" ;
+    forx:forkFullName "repolex-forx/aio-libs--aiohttp" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:08:53Z"^^xsd:dateTime ;
+    forx:stars 16239 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:08:53Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/encode--httpx> a forx:TrackedRepo ;
+    forx:sourceOwner "encode" ;
+    forx:sourceRepo "httpx" ;
+    forx:sourceFullName "encode/httpx" ;
+    forx:forkFullName "repolex-forx/encode--httpx" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:08:56Z"^^xsd:dateTime ;
+    forx:stars 14960 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:08:56Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/urllib3--urllib3> a forx:TrackedRepo ;
+    forx:sourceOwner "urllib3" ;
+    forx:sourceRepo "urllib3" ;
+    forx:sourceFullName "urllib3/urllib3" ;
+    forx:forkFullName "repolex-forx/urllib3--urllib3" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:08:59Z"^^xsd:dateTime ;
+    forx:stars 4002 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:08:59Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/yaml--pyyaml> a forx:TrackedRepo ;
+    forx:sourceOwner "yaml" ;
+    forx:sourceRepo "pyyaml" ;
+    forx:sourceFullName "yaml/pyyaml" ;
+    forx:forkFullName "repolex-forx/yaml--pyyaml" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:09:02Z"^^xsd:dateTime ;
+    forx:stars 2839 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:09:02Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/ijl--orjson> a forx:TrackedRepo ;
+    forx:sourceOwner "ijl" ;
+    forx:sourceRepo "orjson" ;
+    forx:sourceFullName "ijl/orjson" ;
+    forx:forkFullName "repolex-forx/ijl--orjson" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:09:05Z"^^xsd:dateTime ;
+    forx:stars 7844 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:09:05Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/msgpack--msgpack-python> a forx:TrackedRepo ;
+    forx:sourceOwner "msgpack" ;
+    forx:sourceRepo "msgpack-python" ;
+    forx:sourceFullName "msgpack/msgpack-python" ;
+    forx:forkFullName "repolex-forx/msgpack--msgpack-python" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:09:08Z"^^xsd:dateTime ;
+    forx:stars 2060 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:09:08Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/python-attrs--attrs> a forx:TrackedRepo ;
+    forx:sourceOwner "python-attrs" ;
+    forx:sourceRepo "attrs" ;
+    forx:sourceFullName "python-attrs/attrs" ;
+    forx:forkFullName "repolex-forx/python-attrs--attrs" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:09:11Z"^^xsd:dateTime ;
+    forx:stars 5720 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:09:11Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/pydantic--pydantic> a forx:TrackedRepo ;
+    forx:sourceOwner "pydantic" ;
+    forx:sourceRepo "pydantic" ;
+    forx:sourceFullName "pydantic/pydantic" ;
+    forx:forkFullName "repolex-forx/pydantic--pydantic" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:09:14Z"^^xsd:dateTime ;
+    forx:stars 26643 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:09:14Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/pallets--click> a forx:TrackedRepo ;
+    forx:sourceOwner "pallets" ;
+    forx:sourceRepo "click" ;
+    forx:sourceFullName "pallets/click" ;
+    forx:forkFullName "repolex-forx/pallets--click" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:09:17Z"^^xsd:dateTime ;
+    forx:stars 17158 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:09:17Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/python-poetry--poetry> a forx:TrackedRepo ;
+    forx:sourceOwner "python-poetry" ;
+    forx:sourceRepo "poetry" ;
+    forx:sourceFullName "python-poetry/poetry" ;
+    forx:forkFullName "repolex-forx/python-poetry--poetry" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:09:20Z"^^xsd:dateTime ;
+    forx:stars 34179 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:09:20Z"^^xsd:dateTime .
+
+<https://repolex.ai/registry/pypa--pip> a forx:TrackedRepo ;
+    forx:sourceOwner "pypa" ;
+    forx:sourceRepo "pip" ;
+    forx:sourceFullName "pypa/pip" ;
+    forx:forkFullName "repolex-forx/pypa--pip" ;
+    forx:forkStatus forx:forkComplete ;
+    forx:parseStatus forx:parseNotStarted ;
+    forx:addedAt "2026-02-02T01:09:23Z"^^xsd:dateTime ;
+    forx:stars 10080 ;
+    forx:language "Python" ;
+    forx:forkedAt "2026-02-02T01:09:23Z"^^xsd:dateTime .

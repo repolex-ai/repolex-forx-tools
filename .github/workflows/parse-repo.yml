@@ -1,0 +1,122 @@
+name: Parse Repository
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6am UTC
+  workflow_dispatch:      # Manual trigger
+
+env:
+  SOURCE_ORG: jmespath
+  SOURCE_REPO: jmespath.py
+
+permissions:
+  contents: write  # Allow git push
+
+jobs:
+  parse:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout storage repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Clone source repository
+        run: |
+          git clone https://github.com/${{ env.SOURCE_ORG }}/${{ env.SOURCE_REPO }}.git /tmp/source
+          cd /tmp/source
+          git fetch --tags
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Install repolex
+        env:
+          GH_TOKEN: ${{ secrets.REPOLEX_PAT }}
+        run: |
+          uv tool install "git+https://x-access-token:${GH_TOKEN}@github.com/repolex-ai/repolex-parser-py.git"
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Read manifest and find next tag
+        id: find_tag
+        run: |
+          # Create manifest if it doesn't exist
+          if [ ! -f manifest.json ]; then
+            echo '{"source": "${{ env.SOURCE_ORG }}/${{ env.SOURCE_REPO }}", "parsed_tags": []}' > manifest.json
+          fi
+
+          # Get all release tags from source repo
+          cd /tmp/source
+          ALL_TAGS=$(git tag --list --sort=version:refname | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' || true)
+
+          if [ -z "$ALL_TAGS" ]; then
+            echo "No release tags found"
+            echo "tag=" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Get parsed tags from manifest
+          cd $GITHUB_WORKSPACE
+          PARSED_TAGS=$(jq -r '.parsed_tags[].tag' manifest.json 2>/dev/null || echo "")
+
+          # Find first unparsed tag
+          NEXT_TAG=""
+          for tag in $ALL_TAGS; do
+            if ! echo "$PARSED_TAGS" | grep -q "^${tag}$"; then
+              NEXT_TAG=$tag
+              break
+            fi
+          done
+
+          echo "Next tag to parse: ${NEXT_TAG:-none}"
+          echo "tag=$NEXT_TAG" >> $GITHUB_OUTPUT
+
+      - name: Checkout source at tag
+        if: steps.find_tag.outputs.tag != ''
+        run: |
+          cd /tmp/source
+          git checkout ${{ steps.find_tag.outputs.tag }}
+          COMMIT_SHA=$(git rev-parse HEAD)
+          echo "COMMIT_SHA=$COMMIT_SHA" >> $GITHUB_ENV
+
+      - name: Parse repository
+        if: steps.find_tag.outputs.tag != ''
+        env:
+          REPOLEX_HOME: ${{ github.workspace }}
+        run: |
+          cd /tmp/source
+          repolex parse ${{ env.SOURCE_ORG }}/${{ env.SOURCE_REPO }}
+          repolex aggregate ${{ env.SOURCE_ORG }}/${{ env.SOURCE_REPO }}
+
+      - name: Update manifest
+        if: steps.find_tag.outputs.tag != ''
+        run: |
+          TAG=${{ steps.find_tag.outputs.tag }}
+          COMMIT_SHA=${{ env.COMMIT_SHA }}
+          TIMESTAMP=$(date -u +"%Y-%m-%d")
+
+          # Update manifest.json
+          jq --arg tag "$TAG" \
+             --arg sha "$COMMIT_SHA" \
+             --arg ts "$TIMESTAMP" \
+             '.parsed_tags += [{"tag": $tag, "commit_sha": $sha, "parsed_at": $ts}]' \
+             manifest.json > manifest.json.tmp
+          mv manifest.json.tmp manifest.json
+
+      - name: Commit and push changes
+        if: steps.find_tag.outputs.tag != ''
+        run: |
+          git config user.name "repolex-bot"
+          git config user.email "bot@repolex.ai"
+          git add .
+          git commit -m "Parse ${{ env.SOURCE_ORG }}/${{ env.SOURCE_REPO }} @ ${{ steps.find_tag.outputs.tag }}"
+          git push
