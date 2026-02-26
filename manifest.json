@@ -1,13 +1,27 @@
 {
   "version": "1.0",
-  "last_updated": "2026-02-26T00:00:00Z",
+  "last_updated": "2026-02-26T14:41:47.474722Z",
   "repos": {
     "jmespath/jmespath.py": {
       "added_at": "2026-02-20",
       "priority": 1,
       "parsed_tags": [],
-      "discovered_tags": null,
-      "total_tags": 0,
+      "discovered_tags": [
+        "0.0.3",
+        "0.1.0",
+        "0.2.1",
+        "0.3.1",
+        "0.4.1",
+        "0.5.0",
+        "0.6.2",
+        "0.7.1",
+        "0.8.0",
+        "0.9.5",
+        "0.10.0",
+        "1.0.1",
+        "1.1.0"
+      ],
+      "total_tags": 13,
       "parsed_count": 0,
       "last_parsed": null
     }
@@ -15,6 +29,6 @@
   "stats": {
     "total_repos": 1,
     "total_tags_parsed": 0,
-    "total_tags_pending": 0
+    "total_tags_pending": 13
   }
 }
