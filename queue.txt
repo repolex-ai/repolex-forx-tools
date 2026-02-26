@@ -4,3 +4,4 @@
 # Empty lines ignored
 
 jmespath/jmespath.py
+certifi/python-certifi
