@@ -1,0 +1,6 @@
+# repolex-forx parsing queue
+# One repo per line: org/repo
+# Lines starting with # are comments
+# Empty lines ignored
+
+jmespath/jmespath.py

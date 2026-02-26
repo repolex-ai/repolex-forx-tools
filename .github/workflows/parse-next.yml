@@ -1,0 +1,212 @@
+name: Parse Next Repository
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Daily at 6am UTC
+  workflow_dispatch:      # Manual trigger
+
+permissions:
+  contents: write  # Allow git push
+
+jobs:
+  find-work:
+    runs-on: ubuntu-latest
+    outputs:
+      repo: ${{ steps.find.outputs.repo }}
+      tag: ${{ steps.find.outputs.tag }}
+      storage_repo: ${{ steps.find.outputs.storage_repo }}
+      needs_discovery: ${{ steps.find.outputs.needs_discovery }}
+
+    steps:
+      - name: Checkout orchestration repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install packaging
+
+      - name: Find next work
+        id: find
+        run: |
+          python scripts/find_next_work.py >> $GITHUB_OUTPUT
+
+  discover-versions:
+    needs: find-work
+    if: needs.find-work.outputs.needs_discovery == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout orchestration repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install packaging
+
+      - name: Clone source repository
+        run: |
+          git clone https://github.com/${{ needs.find-work.outputs.repo }}.git /tmp/source
+          cd /tmp/source
+          git fetch --tags
+
+      - name: Discover versions
+        run: |
+          python scripts/discover_versions.py \
+            "${{ needs.find-work.outputs.repo }}" \
+            /tmp/source
+
+      - name: Commit updated manifest
+        run: |
+          git config user.name "repolex-bot"
+          git config user.email "bot@repolex.ai"
+          git add manifest.json
+          git commit -m "Discovered versions for ${{ needs.find-work.outputs.repo }}"
+          git push
+
+  parse:
+    needs: [find-work, discover-versions]
+    if: |
+      always() &&
+      needs.find-work.outputs.repo != '' &&
+      needs.find-work.outputs.tag != '' &&
+      (needs.discover-versions.result == 'success' || needs.discover-versions.result == 'skipped')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout storage repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ needs.find-work.outputs.storage_repo }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Clone source repository
+        run: |
+          git clone https://github.com/${{ needs.find-work.outputs.repo }}.git /tmp/source
+          cd /tmp/source
+          git fetch --tags
+          git checkout ${{ needs.find-work.outputs.tag }}
+          echo "COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+      - name: Install repolex
+        env:
+          GH_TOKEN: ${{ secrets.REPOLEX_PAT }}
+        run: |
+          uv tool install "git+https://x-access-token:${GH_TOKEN}@github.com/repolex-ai/repolex-parser-py.git"
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+      - name: Parse repository
+        env:
+          REPOLEX_HOME: ${{ github.workspace }}
+        run: |
+          cd /tmp/source
+          repolex parse ${{ needs.find-work.outputs.repo }}
+          repolex aggregate ${{ needs.find-work.outputs.repo }}
+
+      - name: Commit parsed data
+        run: |
+          git config user.name "repolex-bot"
+          git config user.email "bot@repolex.ai"
+          git add .
+          git commit -m "Parse ${{ needs.find-work.outputs.repo }}@${{ needs.find-work.outputs.tag }}"
+          git push
+
+  update-manifest:
+    needs: [find-work, parse]
+    if: needs.parse.result == 'success'
+    runs-on: ubuntu-latest
+    outputs:
+      all_tags_parsed: ${{ steps.update.outputs.all_tags_parsed }}
+
+    steps:
+      - name: Checkout orchestration repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get commit SHA
+        run: |
+          git clone https://github.com/${{ needs.find-work.outputs.repo }}.git /tmp/source
+          cd /tmp/source
+          git checkout ${{ needs.find-work.outputs.tag }}
+          echo "COMMIT_SHA=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+      - name: Update manifest
+        id: update
+        run: |
+          python scripts/update_manifest.py \
+            "${{ needs.find-work.outputs.repo }}" \
+            "${{ needs.find-work.outputs.tag }}" \
+            "${{ env.COMMIT_SHA }}" \
+            "${{ needs.find-work.outputs.storage_repo }}" >> $GITHUB_OUTPUT
+
+      - name: Commit manifest
+        run: |
+          git config user.name "repolex-bot"
+          git config user.email "bot@repolex.ai"
+          git add manifest.json
+          git commit -m "Mark ${{ needs.find-work.outputs.repo }}@${{ needs.find-work.outputs.tag }} as parsed"
+          git push
+
+  rediscover-versions:
+    needs: [find-work, update-manifest]
+    if: needs.update-manifest.outputs.all_tags_parsed == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout orchestration repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          ref: main  # Make sure we have latest manifest
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install packaging
+
+      - name: Clone source repository
+        run: |
+          git clone https://github.com/${{ needs.find-work.outputs.repo }}.git /tmp/source
+          cd /tmp/source
+          git fetch --tags
+
+      - name: Re-discover versions
+        run: |
+          python scripts/discover_versions.py \
+            "${{ needs.find-work.outputs.repo }}" \
+            /tmp/source
+
+      - name: Commit updated manifest
+        run: |
+          git config user.name "repolex-bot"
+          git config user.email "bot@repolex.ai"
+          git add manifest.json
+          git commit -m "Re-discovered versions for ${{ needs.find-work.outputs.repo }} (all tags complete)"
+          git push
