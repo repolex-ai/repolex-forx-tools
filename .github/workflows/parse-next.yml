@@ -103,7 +103,8 @@ jobs:
           gh repo create ${{ needs.find-work.outputs.storage_repo }} \
             --public \
             --description "RDF storage for ${{ needs.find-work.outputs.repo }}" \
-            --homepage "https://github.com/${{ needs.find-work.outputs.repo }}"
+            --homepage "https://github.com/${{ needs.find-work.outputs.repo }}" \
+            --gitignore Python
 
       - name: Checkout storage repo
         uses: actions/checkout@v4
