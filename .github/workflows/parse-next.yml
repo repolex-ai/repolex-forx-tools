@@ -166,6 +166,7 @@ jobs:
 
       - name: Commit parsed data
         run: |
+          cd ${{ github.workspace }}
           git config user.name "repolex-bot"
           git config user.email "bot@repolex.ai"
           git add .
