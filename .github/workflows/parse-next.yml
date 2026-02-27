@@ -174,7 +174,7 @@ jobs:
 
   update-manifest:
     needs: [find-work, parse]
-    if: needs.parse.result == 'success'
+    if: always() && needs.parse.result == 'success'
     runs-on: ubuntu-latest
     outputs:
       all_tags_parsed: ${{ steps.update.outputs.all_tags_parsed }}
