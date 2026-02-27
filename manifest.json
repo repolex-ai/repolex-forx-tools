@@ -96,5 +96,12 @@
     "total_repos": 2,
     "total_tags_parsed": 1,
     "total_tags_pending": 59
-  }
+  },
+  "parsed_tags": [
+    {
+      "tag": "0.0.1",
+      "commit_sha": "9f51c778b96a2e515aa58054915420d24770dfa2",
+      "parsed_at": "2026-02-27"
+    }
+  ]
 }
