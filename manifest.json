@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-02-28T15:20:23.189613Z",
+  "last_updated": "2026-02-28T15:44:33.187933Z",
   "repos": {
     "jmespath/jmespath.py": {
       "added_at": "2026-02-20",
@@ -85,6 +85,14 @@
           "storage_repo": "repolex-forx/jmespath--jmespath.py",
           "deps_graph": null,
           "parse_status": "complete"
+        },
+        {
+          "tag": "0.8.0",
+          "commit_sha": "361838dfe91e53d1a474aeec4b3e45ef67c1a329",
+          "parsed_at": "2026-02-28",
+          "storage_repo": "repolex-forx/jmespath--jmespath.py",
+          "deps_graph": null,
+          "parse_status": "complete"
         }
       ],
       "discovered_tags": [
@@ -103,7 +111,7 @@
         "1.1.0"
       ],
       "total_tags": 13,
-      "parsed_count": 10,
+      "parsed_count": 11,
       "last_parsed": "2026-02-28"
     },
     "certifi/python-certifi": {
@@ -166,8 +174,8 @@
   },
   "stats": {
     "total_repos": 2,
-    "total_tags_parsed": 10,
-    "total_tags_pending": 50
+    "total_tags_parsed": 11,
+    "total_tags_pending": 49
   },
   "parsed_tags": [
     {
