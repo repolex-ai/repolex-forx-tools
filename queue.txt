@@ -4,3 +4,14 @@
 # Empty lines ignored
 
 jmespath/jmespath.py
+repolex-ai/lexq
+oxigraph/pyoxigraph
+digitalbazaar/pyld
+pallets/click
+encode/httpx
+hukkin/tomli
+hukkin/tomli-w
+Textualize/rich
+astanin/python-tabulate
+yaml/pyyaml
+dgerber/rfc3987
