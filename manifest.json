@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-02-28T16:49:35.336129Z",
+  "last_updated": "2026-03-01T15:42:39.890050Z",
   "repos": {
     "jmespath/jmespath.py": {
       "added_at": "2026-02-20",
@@ -186,12 +186,30 @@
       "total_tags": 47,
       "parsed_count": 0,
       "last_parsed": null
+    },
+    "digitalbazaar/pyld": {
+      "added_at": "2026-03-01",
+      "priority": 1,
+      "parsed_tags": [],
+      "discovered_tags": [
+        "0.1.0",
+        "0.4.10",
+        "0.5.5",
+        "0.6.8",
+        "0.7.3",
+        "0.8.2",
+        "1.0.5",
+        "2.0.4"
+      ],
+      "total_tags": 8,
+      "parsed_count": 0,
+      "last_parsed": null
     }
   },
   "stats": {
-    "total_repos": 2,
+    "total_repos": 3,
     "total_tags_parsed": 13,
-    "total_tags_pending": 47
+    "total_tags_pending": 55
   },
   "parsed_tags": [
     {
