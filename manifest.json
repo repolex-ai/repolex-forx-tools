@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-01T18:09:11.518207Z",
+  "last_updated": "2026-03-01T18:32:32.582181Z",
   "repos": {
     "jmespath/jmespath.py": {
       "added_at": "2026-02-20",
@@ -286,12 +286,32 @@
       "total_tags": 29,
       "parsed_count": 1,
       "last_parsed": "2026-03-01"
+    },
+    "hukkin/tomli": {
+      "added_at": "2026-03-01",
+      "priority": 1,
+      "parsed_tags": [],
+      "discovered_tags": [
+        "0.1.0",
+        "0.2.10",
+        "1.0.4",
+        "1.1.0",
+        "1.2.3",
+        "2.0.2",
+        "2.1.0",
+        "2.2.1",
+        "2.3.0",
+        "2.4.0"
+      ],
+      "total_tags": 10,
+      "parsed_count": 0,
+      "last_parsed": null
     }
   },
   "stats": {
-    "total_repos": 5,
+    "total_repos": 6,
     "total_tags_parsed": 16,
-    "total_tags_pending": 87
+    "total_tags_pending": 97
   },
   "parsed_tags": [
     {
