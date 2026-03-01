@@ -1,8 +1,8 @@
 name: Parse Next Repository
 on:
   schedule:
-    - cron: '*/30 * * * *'  # Every 30 minutes
-  workflow_dispatch:        # Manual trigger
+    - cron: '*/5 * * * *'  # Every 5 minutes
+  workflow_dispatch:       # Manual trigger
 
 permissions:
   contents: write  # Allow git push
