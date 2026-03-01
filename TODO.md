@@ -1,8 +1,11 @@
 # TODO
 
 ## Version Discovery
-- [ ] Fix for repos that don't use semantic versioning for tags
-  - Some repos use date-based versioning (e.g., certifi uses `2025.01.31`, `2026.02.25`)
-  - Some repos use other formats (e.g., `v1.0`, `release-1.0`)
-  - Current `discover_versions.py` only filters for strict semver (X.Y.Z)
-  - Need to support multiple versioning schemes or make filtering configurable
+- [ ] Auto-detect and handle multiple versioning schemes (MUST BE FULLY AUTOMATIC)
+  - Current: Only strict semver (X.Y.Z)
+  - Date-based: `2025.01.31`, `2026.02.25` (e.g., certifi)
+  - Prefixed: `v1.0.1`, `release-1.0`
+  - CalVer: `2025.1`, `25.3.1`
+  - **Solution**: Auto-detect versioning pattern from tags, use heuristics
+  - **Fallback**: If no pattern detected, parse all tags (with smart sampling/limiting)
+  - **Constraint**: ZERO manual configuration - system runs nonstop, unsupervised
