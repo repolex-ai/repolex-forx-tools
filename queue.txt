@@ -4,7 +4,6 @@
 # Empty lines ignored
 
 jmespath/jmespath.py
-oxigraph/oxigraph
 digitalbazaar/pyld
 pallets/click
 encode/httpx
