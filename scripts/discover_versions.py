@@ -110,12 +110,12 @@ def discover_and_update(org_repo, repo_path):
     print(f"  Filtered to {len(semver_tags)} semantic version tags")
 
     if not semver_tags:
-        print(f"  ⚠️  No semantic version tags found")
-        return []
-
-    # Smart selection
-    selected = select_versions_smart(semver_tags)
-    print(f"  Selected {len(selected)} versions (latest patch per minor)")
+        print(f"  ⚠️  No semantic version tags found - marking as discovered with 0 tags")
+        selected = []
+    else:
+        # Smart selection
+        selected = select_versions_smart(semver_tags)
+        print(f"  Selected {len(selected)} versions (latest patch per minor)")
 
     # Update manifest
     manifest = load_manifest()
