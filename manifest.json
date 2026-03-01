@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-01T18:32:32.582181Z",
+  "last_updated": "2026-03-01T19:04:25.735612Z",
   "repos": {
     "jmespath/jmespath.py": {
       "added_at": "2026-02-20",
@@ -290,7 +290,16 @@
     "hukkin/tomli": {
       "added_at": "2026-03-01",
       "priority": 1,
-      "parsed_tags": [],
+      "parsed_tags": [
+        {
+          "tag": "0.1.0",
+          "commit_sha": "14182cd4f2b12c3544bb6a647c07eec5041db297",
+          "parsed_at": "2026-03-01",
+          "storage_repo": "repolex-forx/hukkin--tomli",
+          "deps_graph": null,
+          "parse_status": "complete"
+        }
+      ],
       "discovered_tags": [
         "0.1.0",
         "0.2.10",
@@ -304,14 +313,14 @@
         "2.4.0"
       ],
       "total_tags": 10,
-      "parsed_count": 0,
-      "last_parsed": null
+      "parsed_count": 1,
+      "last_parsed": "2026-03-01"
     }
   },
   "stats": {
     "total_repos": 6,
-    "total_tags_parsed": 16,
-    "total_tags_pending": 97
+    "total_tags_parsed": 17,
+    "total_tags_pending": 96
   },
   "parsed_tags": [
     {
