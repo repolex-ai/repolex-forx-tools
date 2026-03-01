@@ -15,3 +15,4 @@ Textualize/rich
 astanin/python-tabulate
 yaml/pyyaml
 dgerber/rfc3987
+asimov-platform/asimov.py
