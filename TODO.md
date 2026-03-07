@@ -20,3 +20,21 @@
     - `head_last_parsed`: Date of last HEAD parse
   - **Benefit**: Gets repos into the system even without tags
   - **Constraint**: Must not spam parsing on every commit - weekly is enough
+
+## LSP Dependency Caching for CI/CD
+- [ ] Pre-cache multilspy language server dependencies in GitHub Actions (CRITICAL FOR AUTOMATION)
+  - **Problem**: First use of each LSP downloads 400MB+ deps **silently** with zero progress output
+    - Java (jdtls): 200-300MB (JRE + Eclipse JDT LS + Lombok)
+    - Gradle: 115MB
+    - IntelliCode: 50MB
+    - Other languages have similar deps
+  - **Impact**: First aggregate job hangs for ~2 hours downloading, looks stuck
+  - **Current behavior**: Downloads to `.venv/lib/python3.13/site-packages/multilspy/language_servers/*/static/`
+  - **Solution Options**:
+    1. Pre-download and cache LSP deps as GitHub Actions cache
+    2. Add progress logging to multilspy (upstream contribution)
+    3. Run warm-up step that initializes all LSP servers before main job
+  - **For automated forx**: Need language detection → pre-cache only needed LSPs
+  - **Languages to support**: Python (jedi), Java (jdtls), JavaScript/TypeScript, Rust, Go, Ruby, C#
+  - **Cache strategy**: Hash multilspy version + platform → restore/save cache
+  - **Constraint**: MUST work unattended - no manual intervention if new language detected
