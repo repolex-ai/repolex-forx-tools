@@ -162,8 +162,8 @@ jobs:
           REPOLEX_HOME: ${{ github.workspace }}
         run: |
           cd /tmp/source
-          repolex parse ${{ needs.find-work.outputs.repo }}
-          repolex aggregate ${{ needs.find-work.outputs.repo }}
+          repolex parse ${{ needs.find-work.outputs.repo }} ${{ needs.find-work.outputs.tag }}
+          repolex aggregate ${{ needs.find-work.outputs.repo }} ${{ needs.find-work.outputs.tag }}
 
       - name: Commit parsed data
         run: |

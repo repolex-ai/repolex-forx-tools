@@ -94,8 +94,8 @@ jobs:
           REPOLEX_HOME: ${{ github.workspace }}
         run: |
           cd /tmp/source
-          repolex parse ${{ env.SOURCE_ORG }}/${{ env.SOURCE_REPO }}
-          repolex aggregate ${{ env.SOURCE_ORG }}/${{ env.SOURCE_REPO }}
+          repolex parse ${{ env.SOURCE_ORG }}/${{ env.SOURCE_REPO }} ${{ steps.find_tag.outputs.tag }}
+          repolex aggregate ${{ env.SOURCE_ORG }}/${{ env.SOURCE_REPO }} ${{ steps.find_tag.outputs.tag }}
 
       - name: Update manifest
         if: steps.find_tag.outputs.tag != ''
