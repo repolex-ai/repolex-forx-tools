@@ -498,6 +498,11 @@
       "tag": "0.5.0",
       "commit_sha": "b445f1356bd64b7537746ba751526c535caa2283",
       "parsed_at": "2026-03-09"
+    },
+    {
+      "tag": "0.6.0",
+      "commit_sha": "7cdde2bb48e2cbaaeb5f8e54b84b500d3e30c54c",
+      "parsed_at": "2026-03-10"
     }
   ]
 }
