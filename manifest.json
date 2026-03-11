@@ -503,6 +503,11 @@
       "tag": "0.6.0",
       "commit_sha": "7cdde2bb48e2cbaaeb5f8e54b84b500d3e30c54c",
       "parsed_at": "2026-03-10"
+    },
+    {
+      "tag": "0.6.1",
+      "commit_sha": "5f23fbf1880e513495a67d52d493855f88b19460",
+      "parsed_at": "2026-03-11"
     }
   ]
 }
