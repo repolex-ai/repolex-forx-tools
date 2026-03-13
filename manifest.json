@@ -513,6 +513,11 @@
       "tag": "0.6.2",
       "commit_sha": "dc5776981091c73a4598f7da1b23134027cef2a2",
       "parsed_at": "2026-03-12"
+    },
+    {
+      "tag": "0.7.0",
+      "commit_sha": "0466cc1212a357c7e73cf7f5a39d269716bfe6e2",
+      "parsed_at": "2026-03-13"
     }
   ]
 }
