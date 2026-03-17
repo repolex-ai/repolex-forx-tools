@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-17T20:06:58.342050Z",
+  "last_updated": "2026-03-17T20:54:27.888321Z",
   "repos": {
     "jmespath/jmespath.py": {
       "added_at": "2026-02-20",
@@ -501,6 +501,15 @@
           "storage_repo": "repolex-forx/pallets--click",
           "deps_graph": null,
           "parse_status": "complete"
+        },
+        {
+          "tag": "8.0.4",
+          "git_tag": "8.0.4",
+          "commit_sha": "bf1a6d4956cbbbfd0a6f4dd6310c8110cf89f7fe",
+          "parsed_at": "2026-03-17",
+          "storage_repo": "repolex-forx/pallets--click",
+          "deps_graph": null,
+          "parse_status": "complete"
         }
       ],
       "discovered_tags": [
@@ -530,7 +539,7 @@
         }
       ],
       "total_tags": 6,
-      "parsed_count": 2,
+      "parsed_count": 3,
       "last_parsed": "2026-03-17"
     },
     "encode/httpx": {
@@ -1201,8 +1210,8 @@
   },
   "stats": {
     "total_repos": 9,
-    "total_tags_parsed": 32,
-    "total_tags_pending": 175
+    "total_tags_parsed": 33,
+    "total_tags_pending": 174
   },
   "parsed_tags": [
     {
