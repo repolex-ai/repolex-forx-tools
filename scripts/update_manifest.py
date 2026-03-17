@@ -43,6 +43,9 @@ def save_manifest(manifest):
 def mark_parsed(org_repo, tag, commit_sha, storage_repo=None):
     """
     Mark a tag as successfully parsed.
+    The tag parameter is the original git tag (e.g., 'v0.3.3').
+    We store the clean version (e.g., '0.3.3') as the key for matching
+    against discovered_tags.
     """
     manifest = load_manifest()
 
@@ -52,9 +55,12 @@ def mark_parsed(org_repo, tag, commit_sha, storage_repo=None):
 
     repo_data = manifest["repos"][org_repo]
 
+    # Store clean version as the tag key (strip 'v' prefix)
+    clean_tag = tag.lstrip("v")
+
     # Check if already parsed
     parsed_tags = {pt["tag"] for pt in repo_data["parsed_tags"]}
-    if tag in parsed_tags:
+    if clean_tag in parsed_tags:
         print(f"ℹ️  Tag {tag} already marked as parsed", file=sys.stderr)
         return
 
@@ -64,7 +70,8 @@ def mark_parsed(org_repo, tag, commit_sha, storage_repo=None):
 
     # Add to parsed_tags
     entry = {
-        "tag": tag,
+        "tag": clean_tag,
+        "git_tag": tag,
         "commit_sha": commit_sha,
         "parsed_at": datetime.utcnow().strftime("%Y-%m-%d"),
         "storage_repo": storage_repo,

@@ -71,7 +71,7 @@ def find_next_repo(queue, manifest):
 def find_next_tag(org_repo, manifest):
     """
     Find next unparsed tag for a repo.
-    Returns None if version discovery needed.
+    Returns the git_tag (original tag name) or None if version discovery needed.
     """
     if org_repo not in manifest["repos"]:
         return None
@@ -84,9 +84,17 @@ def find_next_tag(org_repo, manifest):
 
     # Find first unparsed tag
     parsed_tags = {pt["tag"] for pt in data["parsed_tags"]}
-    for tag in data["discovered_tags"]:
-        if tag not in parsed_tags:
-            return tag
+    for entry in data["discovered_tags"]:
+        # Support both new format (dict with git_tag) and old format (plain string)
+        if isinstance(entry, dict):
+            version_key = entry["version"]
+            git_tag = entry["git_tag"]
+        else:
+            version_key = entry
+            git_tag = entry
+
+        if version_key not in parsed_tags:
+            return git_tag
 
     return None
 
