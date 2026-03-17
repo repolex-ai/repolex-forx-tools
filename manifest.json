@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-17T23:02:05.463211Z",
+  "last_updated": "2026-03-17T23:38:56.404459Z",
   "repos": {
     "jmespath/jmespath.py": {
       "added_at": "2026-02-20",
@@ -598,6 +598,15 @@
           "storage_repo": "repolex-forx/encode--httpx",
           "deps_graph": null,
           "parse_status": "complete"
+        },
+        {
+          "tag": "0.3.1",
+          "git_tag": "0.3.1",
+          "commit_sha": "f4591f08ae0a8009789ff23a68cb1830ea7100f5",
+          "parsed_at": "2026-03-17",
+          "storage_repo": "repolex-forx/encode--httpx",
+          "deps_graph": null,
+          "parse_status": "complete"
         }
       ],
       "discovered_tags": [
@@ -719,7 +728,7 @@
         }
       ],
       "total_tags": 29,
-      "parsed_count": 3,
+      "parsed_count": 4,
       "last_parsed": "2026-03-17"
     },
     "hukkin/tomli": {
@@ -1246,8 +1255,8 @@
   },
   "stats": {
     "total_repos": 9,
-    "total_tags_parsed": 37,
-    "total_tags_pending": 170
+    "total_tags_parsed": 38,
+    "total_tags_pending": 169
   },
   "parsed_tags": [
     {
