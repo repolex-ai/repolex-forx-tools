@@ -57,12 +57,15 @@ def find_next_repo(queue, manifest):
     if not repos_with_work:
         return None
 
-    # Sort by last_parsed (None comes first, then oldest)
+    # Prioritize: repos ready to parse first, then discovery
+    # Within each group, sort by last_parsed (None/oldest first)
     def sort_key(item):
         _, last_parsed, work_type = item
+        # parse-ready repos get priority 0, discovery gets priority 1
+        type_priority = 0 if work_type == "parse" else 1
         if last_parsed is None:
-            return (0, "")  # Never parsed - highest priority
-        return (1, last_parsed)
+            return (type_priority, 0, "")
+        return (type_priority, 1, last_parsed)
 
     repos_with_work.sort(key=sort_key)
     return repos_with_work[0][0]
