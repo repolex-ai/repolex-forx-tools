@@ -1186,6 +1186,11 @@
       "tag": "0.9.0",
       "commit_sha": "048f59408570bbfcc60a197f6426fbda6d9c70f4",
       "parsed_at": "2026-03-16"
+    },
+    {
+      "tag": "0.9.1",
+      "commit_sha": "79baf74115fc49089ca737f24757e968dfe16062",
+      "parsed_at": "2026-03-17"
     }
   ]
 }
