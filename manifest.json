@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-17T01:42:48.233719Z",
+  "last_updated": "2026-03-17T04:06:54.471332Z",
   "repos": {
     "jmespath/jmespath.py": {
       "added_at": "2026-02-20",
@@ -560,12 +560,30 @@
       "total_tags": 84,
       "parsed_count": 0,
       "last_parsed": null
+    },
+    "TopQuadrant/shacl": {
+      "added_at": "2026-03-17",
+      "priority": 1,
+      "parsed_tags": [],
+      "discovered_tags": [
+        {
+          "version": "1.0.0",
+          "git_tag": "v1.0.0"
+        },
+        {
+          "version": "1.4.4",
+          "git_tag": "v1.4.4"
+        }
+      ],
+      "total_tags": 2,
+      "parsed_count": 0,
+      "last_parsed": null
     }
   },
   "stats": {
-    "total_repos": 8,
+    "total_repos": 9,
     "total_tags_parsed": 18,
-    "total_tags_pending": 66
+    "total_tags_pending": 68
   },
   "parsed_tags": [
     {
