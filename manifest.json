@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-17T05:40:36.699119Z",
+  "last_updated": "2026-03-17T06:42:23.375658Z",
   "repos": {
     "jmespath/jmespath.py": {
       "added_at": "2026-02-20",
@@ -709,7 +709,17 @@
     "Textualize/rich": {
       "added_at": "2026-03-01",
       "priority": 1,
-      "parsed_tags": [],
+      "parsed_tags": [
+        {
+          "tag": "0.3.3",
+          "git_tag": "v0.3.3",
+          "commit_sha": "6261ca23bf838abaa0fa6478dc81ccb18a6949c0",
+          "parsed_at": "2026-03-17",
+          "storage_repo": "repolex-forx/Textualize--rich",
+          "deps_graph": null,
+          "parse_status": "complete"
+        }
+      ],
       "discovered_tags": [
         {
           "version": "0.3.3",
@@ -1049,8 +1059,8 @@
         }
       ],
       "total_tags": 84,
-      "parsed_count": 0,
-      "last_parsed": null
+      "parsed_count": 1,
+      "last_parsed": "2026-03-17"
     },
     "TopQuadrant/shacl": {
       "added_at": "2026-03-17",
@@ -1083,8 +1093,8 @@
   },
   "stats": {
     "total_repos": 9,
-    "total_tags_parsed": 19,
-    "total_tags_pending": 188
+    "total_tags_parsed": 20,
+    "total_tags_pending": 187
   },
   "parsed_tags": [
     {
