@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-17T12:37:53.303913Z",
+  "last_updated": "2026-03-17T14:10:14.749806Z",
   "repos": {
     "jmespath/jmespath.py": {
       "added_at": "2026-02-20",
@@ -1119,6 +1119,15 @@
           "storage_repo": "repolex-forx/TopQuadrant--shacl",
           "deps_graph": null,
           "parse_status": "complete"
+        },
+        {
+          "tag": "1.4.4",
+          "git_tag": "v1.4.4",
+          "commit_sha": "a40627da5df455535d3519eb6629057ab52a2843",
+          "parsed_at": "2026-03-17",
+          "storage_repo": "repolex-forx/TopQuadrant--shacl",
+          "deps_graph": null,
+          "parse_status": "complete"
         }
       ],
       "discovered_tags": [
@@ -1132,14 +1141,14 @@
         }
       ],
       "total_tags": 2,
-      "parsed_count": 1,
+      "parsed_count": 2,
       "last_parsed": "2026-03-17"
     }
   },
   "stats": {
     "total_repos": 9,
-    "total_tags_parsed": 25,
-    "total_tags_pending": 182
+    "total_tags_parsed": 26,
+    "total_tags_pending": 181
   },
   "parsed_tags": [
     {
