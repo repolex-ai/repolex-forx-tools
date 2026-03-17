@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-17T11:57:28.664691Z",
+  "last_updated": "2026-03-17T12:37:53.303913Z",
   "repos": {
     "jmespath/jmespath.py": {
       "added_at": "2026-02-20",
@@ -702,6 +702,15 @@
           "storage_repo": "repolex-forx/hukkin--tomli-w",
           "deps_graph": null,
           "parse_status": "complete"
+        },
+        {
+          "tag": "0.1.0",
+          "git_tag": "0.1.0",
+          "commit_sha": "caa5cc2be87ba50a3396619b0eb4d555e4861c2f",
+          "parsed_at": "2026-03-17",
+          "storage_repo": "repolex-forx/hukkin--tomli-w",
+          "deps_graph": null,
+          "parse_status": "complete"
         }
       ],
       "discovered_tags": [
@@ -739,8 +748,8 @@
         }
       ],
       "total_tags": 8,
-      "parsed_count": 1,
-      "last_parsed": "2026-03-01"
+      "parsed_count": 2,
+      "last_parsed": "2026-03-17"
     },
     "Textualize/rich": {
       "added_at": "2026-03-01",
@@ -1129,8 +1138,8 @@
   },
   "stats": {
     "total_repos": 9,
-    "total_tags_parsed": 24,
-    "total_tags_pending": 183
+    "total_tags_parsed": 25,
+    "total_tags_pending": 182
   },
   "parsed_tags": [
     {
