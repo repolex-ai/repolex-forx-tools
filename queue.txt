@@ -3,6 +3,7 @@
 # Lines starting with # are comments
 # Empty lines ignored
 
+TopQuadrant/shacl
 jmespath/jmespath.py
 digitalbazaar/pyld
 pallets/click
