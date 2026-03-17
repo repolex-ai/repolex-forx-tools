@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "last_updated": "2026-03-17T15:10:12.145583Z",
+  "last_updated": "2026-03-17T16:20:37.082264Z",
   "repos": {
     "jmespath/jmespath.py": {
       "added_at": "2026-02-20",
@@ -396,6 +396,15 @@
           "storage_repo": "repolex-forx/digitalbazaar--pyld",
           "deps_graph": null,
           "parse_status": "complete"
+        },
+        {
+          "tag": "0.6.8",
+          "git_tag": "0.6.8",
+          "commit_sha": "b65533153b19121a903b8d2175f688dbfe56a1da",
+          "parsed_at": "2026-03-17",
+          "storage_repo": "repolex-forx/digitalbazaar--pyld",
+          "deps_graph": null,
+          "parse_status": "complete"
         }
       ],
       "discovered_tags": [
@@ -433,7 +442,7 @@
         }
       ],
       "total_tags": 8,
-      "parsed_count": 3,
+      "parsed_count": 4,
       "last_parsed": "2026-03-17"
     },
     "pallets/click": {
@@ -1156,8 +1165,8 @@
   },
   "stats": {
     "total_repos": 9,
-    "total_tags_parsed": 27,
-    "total_tags_pending": 180
+    "total_tags_parsed": 28,
+    "total_tags_pending": 179
   },
   "parsed_tags": [
     {
